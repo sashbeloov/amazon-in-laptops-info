@@ -1,0 +1,17 @@
+,laptop_brand,laptop_model,laptop_screensize,laptop_ram,laptop_storage,laptop_cpumodel,laptop_os,laptop_price,laptop_rating,laptop_review_count,laptop_gcd
+0,acer,Aspire 3,15.6 Inches,8 GB,No storage,Celeron,Windows 11 Home,"23,990",3.4,247 ratings,Integrated
+1,Apple,MacBook Air,13 Inches,16 GB,256 GB,Core M Family,macOS 10.14 Mojave,"63,990",4.6,"6,453 ratings",Integrated
+2,Apple,MacBook Air,13.6,No ram,512 GB,No cpu,No os,"77,990",4.5,35 ratings,No description
+3,HP,HP Laptop,39.6 Centimetres,16 GB,512 GB,Core i3,Windows 11 Home,"39,490",4.1,"1,923 ratings",Integrated
+4,Lenovo,Lenovo ThinkPad,14 Inches,16 GB,512 GB,Intel Core i5,Windows,No price,3.4,259 ratings,Integrated
+5,acer,Aspire Lite,15.6 Inches,16 GB,512 GB,Ryzen 5,Windows 11 Home,"33,490",4.0,"1,071 ratings",Integrated
+6,Chuwi,HeroBook Pro,14.1 Inches,8 GB,256 GB,Celeron N4020,No os,"16,990",3.6,"3,189 ratings",No description
+7,HP,HP Laptop,15.6 Inches,16 GB,512 GB,Intel Core i5,Windows 11 Home,"54,990",3.7,106 ratings,Integrated
+8,ASUS,TUF Gaming,15.6 Inches,32 GB,No storage,AMD Ryzen 7,Windows 11 Home,"59,990",4.0,440 ratings,Dedicated
+9,HP,15s-fy5010TU,15.6 Inches,8 GB,256 GB,Intel Core i3,Windows 11 Home,"31,999",4.0,108 ratings,Integrated
+10,HP,HP Laptop,39.6 Centimetres,8 GB,512 GB,Ryzen 3,Windows,"30,999",4.1,"1,494 ratings",Integrated
+11,Dell,Dell Latitude,13.3 Inches,32 GB,No storage,Intel Core i5,Windows,No price,No rating,No review_count,Integrated
+12,Lenovo,Lenovo V15 G4,15.6 Inches,16 GB,512 GB,Ryzen 7,Windows 11,"39,990",4.2,72 ratings,Integrated
+13,acer,Aspire 3,15.6 Inches,8 GB,No storage,Celeron,Windows 11 Home,"22,990",3.4,247 ratings,Integrated
+14,ASUS,TUF Gaming F15,15.6 Inches,32 GB,512 GB,AMD Ryzen 7,Windows 11 Home,"64,990",4.0,440 ratings,Dedicated
+15,Lenovo,Lenovo V15 G2 IJL,15.6 Inches,8 GB,256 GB,Celeron,Windows 11 Home,"20,960",3.9,448 ratings,Integrated
