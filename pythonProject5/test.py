@@ -1,376 +1,309 @@
-# from selenium import webdriver
-# from selenium.webdriver.chrome.service import Service
-# from selenium.webdriver.common.by import By
-# from selenium.webdriver.support.wait import WebDriverWait
-# from webdriver_manager.chrome import ChromeDriverManager
-# from selenium.webdriver.support import expected_conditions
-# import pandas as pd
-#
-# url = "https://uybor.uz/listings?category__eq=7&isNewBuilding__eq=false"
-# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-#
-#
-# titles = []
-# rooms = []
-# areas = []
-# floors = []
-# renovations = []
-# materials = []
-# prices = []
-# adresses = []
-# lifts = []
-# securities = []
-# internets = []
-# playground = []
-# sewerages = []
-# bathrooms = []
-# video_monitor = []
-# parking_spaces = []
-# air_condition = []
-# furniture = []
-#
-#
-# counter = 1
-# max_count = 98
-# while counter <= max_count:
-#     laptop_links = []
-#     driver.get(url)
-#
-#     try:
-#         # Keyingi sahifaga o'tish tugmasini kutish
-#         next_page = WebDriverWait(driver, 10).until(
-#             expected_conditions.presence_of_element_located((By.XPATH,
-#                                             "//a[@class='MuiButtonBase-root MuiPaginationItem-root MuiPaginationItem-sizeLarge MuiPaginationItem-text MuiPaginationItem-rounded MuiPaginationItem-textPrimary MuiPaginationItem-previousNext mui-style-mj6azz']"))
-#         )
-#
-#         # To'liq URL olish (relative URL dan to'liq URL yaratish)
-#         next_page_url = next_page.get_attribute("href")
-#         next_page_full_url = url.join(url, next_page_url)  # Asosiy URL ni qo'shish
-#
-#         # Keyingi sahifaga o'tish
-#         url = next_page_full_url  # yangi URLga o'tish
-#         counter += 1
-#         print(f"Sahifa {counter}: {url}")
-#
-#     except Exception as e:
-#         print("End page yoki xatolik:", e)
-#         break
-#
-#
-# # driver.get(url)
-#     float_links = driver.find_elements(By.XPATH, "//a[@class='MuiBox-root mui-style-1vssrzj']")
-#     flat_urls = []
-#     for link in float_links:
-#         flat_urls.append(link.get_attribute('href'))
-#     print(flat_urls)
-#     print(len(flat_urls))
-#
-#     for furl in flat_urls:
-#         driver.get(furl)
-#         try:
-#             title = driver.find_element(By.XPATH, "//h1[@class='MuiTypography-root MuiTypography-h2 mui-style-1tyknu']").text
-#         except:
-#             title = "No title"
-#
-#         titles.append(title)
-#         print(counter)
-#         print(f"Title: {title}")
-#         counter += 1
-#
-#         try:
-#             room = driver.find_element(By.XPATH, "//div[@class='MuiTypography-root MuiTypography-overline mui-style-1xqesu'"
-#                                                  "and contains(text(), 'Комнат')]"
-#                                                  "/following-sibling::div").text
-#         except:
-#             room = "No room"
-#
-#         rooms.append(room)
-#         print(f"Room: {room}")
-#
-#         try:
-#             area = driver.find_element(By.XPATH, "//div[@class='MuiTypography-root MuiTypography-overline mui-style-1xqesu'"
-#                                                  "and contains(text(), 'Площадь')]"
-#                                                  "/following-sibling::div").text
-#         except:
-#             area = "No area"
-#         areas.append(area)
-#         print(f"Area: {area}")
-#
-#         try:
-#             floor = driver.find_element(By.XPATH, "//div[@class='MuiTypography-root MuiTypography-overline mui-style-1xqesu'"
-#                                                  "and contains(text(), 'Этаж')]"
-#                                                  "/following-sibling::div").text
-#         except:
-#             floor = "No floor"
-#         floors.append(floor)
-#         print(f"Floor: {floor}")
-#
-#
-#         try:
-#             renovation = driver.find_element(By.XPATH, "//div[@class='MuiTypography-root MuiTypography-overline mui-style-1xqesu'"
-#                                                  "and contains(text(), 'Ремонт')]"
-#                                                  "/following-sibling::div").text
-#         except:
-#             renovation = "No renovation"
-#         renovations.append(renovation)
-#         print(f"renovation: {renovation}")
-#
-#         try:
-#             material = driver.find_element(By.XPATH, "//div[@class='MuiTypography-root MuiTypography-overline mui-style-1xqesu'"
-#                                                  "and contains(text(), 'Материал')]"
-#                                                  "/following-sibling::div").text
-#         except:
-#             material = "No material"
-#         materials.append(material)
-#         print(f"material: {material}")
-#
-#         try:
-#             price = driver.find_element(By.XPATH, "//div[@class='MuiTypography-root MuiTypography-h2 mui-style-86wpc3']").text
-#         except:
-#             price = "No price"
-#         prices.append(price)
-#         print(f"price: {price}")
-#
-#         try:
-#             adresse = driver.find_element(By.XPATH, "//div[@class='MuiTypography-root MuiTypography-body2 mui-style-31fjox']").text
-#         except:
-#             adresse = "No adresse"
-#         adresses.append(adresse)
-#         print(f"adresse: {adresse}")
-#
-#
-#         try:
-#             elements = driver.find_elements(By.CSS_SELECTOR,".MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-2.mui-style-isbt42")
-#             for element in elements:
-#                 text = element.text.strip()
-#                 if 'Лифт' in text:
-#                     lift = '1'
-#                 else:
-#                     liftlar = floor.split('/')
-#                     if int(liftlar[-1]) > 5:
-#                         lift = '1'
-#                     else:
-#                         lift = '0'
-#                 if 'Охрана' in text:
-#                     security = '1'
-#                 else:
-#                     security = '0'
-#                 if 'Интернет' in text:
-#                     internet = '1'
-#                 else:
-#                     internet = '0'
-#                 if 'Детская площадка' in text:
-#                     playgr = '1'
-#                 else:
-#                     playgr = '0'
-#                 if 'Канализация' in text:
-#                     swg = '1'
-#                 else:
-#                     swg = '0'
-#                 if 'Санузел' in text:
-#                     bath = '1'
-#                 else:
-#                     bath = '0'
-#                 if 'Видеонаблюдение' in text:
-#                     video = '1'
-#                 else:
-#                     video = '0'
-#                 if 'Парковочное место' in text:
-#                     parking = '1'
-#                 else:
-#                     parking = '0'
-#         except Exception as e:
-#             print(f"xato:{e}")
-#
-#         lifts.append(lift)
-#         print(f"lift: {lift}")
-#         securities.append(security)
-#         print(f"security: {security}")
-#         internets.append(internet)
-#         print(f"internet: {internet}")
-#         playground.append(playgr)
-#         print(f"playgr: {playgr}")
-#         sewerages.append(swg)
-#         print(f"swg: {swg}")
-#         bathrooms.append(bath)
-#         print(f"bath: {bath}")
-#         video_monitor.append(video)
-#         print(f"video: {video}")
-#         parking_spaces.append(parking)
-#         print(f"parking: {parking}")
-#
-#
+sasha.belov, [05.03.2025 13:59]
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+import pandas as pd
+import time
 
+# Настройки Selenium
+options = webdriver.ChromeOptions()
+options.add_argument("--headless")  # Запуск в фоновом режиме
+options.add_argument("start-maximized")
+options.add_argument("disable-infobars")
+options.add_argument("--disable-blink-features=AutomationControlled")
+options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36")
 
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
+# Списки для хранения данных
+laptop_brand = []
+laptop_model = []
+laptop_screensize = []
+laptop_ram = []
+laptop_storage = []
+laptop_cpumodel = []
+laptop_operating_system = []
+laptop_price = []
+laptop_rating = []
+laptop_review_count = []
+laptop_graphics_card_description = []
+
+count = 1
+next_page_url = 'https://www.amazon.in/s?k=laptop'
+max_laptops = 100
+
+while count <= max_laptops:
+    laptop_links = []
+
+    driver.get(next_page_url)
+    time.sleep(3)  # Даем время загрузиться странице
+
+    # Получаем ссылки на ноутбуки
+    laptop_url = driver.find_elements(By.XPATH, "//a[@class='a-link-normal s-line-clamp-2 s-link-style a-text-normal']")
+    for url in laptop_url:
+        laptop_links.append(url.get_attribute('href'))
+
+    for link in laptop_links:
+        if count > max_laptops:
+            break
+
+        driver.get(link)
+        time.sleep(2)
+
+        # Извлечение данных с обработкой ошибок
+        try:
+            laptopbrand = driver.find_element(By.XPATH, "//tr[@class='a-spacing-small po-brand']//td[@class='a-span9']").text
+        except:
+            laptopbrand = 'No brand'
+        laptop_brand.append(laptopbrand)
+
+        try:
+            laptopmodel = driver.find_element(By.XPATH, "//tr[@class='a-spacing-small po-model_name']//span[@class='a-size-base po-break-word']").text
+        except:
+            laptopmodel = 'No model'
+        laptop_model.append(laptopmodel)
+
+        try:
+            screensize = driver.find_element(By.XPATH, "//tr[@class='a-spacing-small po-display.size']//span[@class='a-size-base po-break-word']").text
+        except:
+            screensize = 'No screen size'
+        laptop_screensize.append(screensize)
+
+        try:
+            ram = driver.find_element(By.XPATH, "//tr[@class='a-spacing-small po-ram.memory']//span[@class='a-size-base po-break-word']").text
+        except:
+            ram = 'No RAM'
+        laptop_ram.append(ram)
+
+        try:
+            storage = driver.find_element(By.XPATH, "//tr[@class='a-spacing-small po-hard_disk.size']//span[@class='a-size-base po-break-word']").text
+        except:
+            storage = 'No storage'
+        laptop_storage.append(storage)
+
+        try:
+            cpu = driver.find_element(By.XPATH, "//tr[@class='a-spacing-small po-processor.model']//span[@class='a-size-base po-break-word']").text
+        except:
+            cpu = 'No CPU'
+        laptop_cpumodel.append(cpu)
+
+        try:
+            operating_system = driver.find_element(By.XPATH, "//tr[@class='a-spacing-small po-operating_system']//span[@class='a-size-base po-break-word']").text
+        except:
+            operating_system = 'No OS'
+        laptop_operating_system.append(operating_system)
+
+        try:
+            price = driver.find_element(By.XPATH, "//span[@class='a-price-whole']").text
+        except:
+            price = 'No price'
+        laptop_price.append(price)
+
+        try:
+            rating = driver.find_element(By.XPATH, "//span[@class='a-icon-alt']").text
+        except:
+            rating = 'No rating'
+        laptop_rating.append(rating)
+
+        try:
+            review_count = driver.find_element(By.XPATH, "//span[@id='acrCustomerReviewText']").text
+        except:
+            review_count = 'No reviews'
+        laptop_review_count.append(review_count)
+
+        try:
+            description = driver.find_element(By.
+
+sasha.belov, [05.03.2025 13:59]
+XPATH, "//tr[@class='a-spacing-small po-graphics_description']//span[@class='a-size-base po-break-word']").text
+        except:
+            description = 'No description'
+        laptop_graphics_card_description.append(description)
+
+        count += 1
+
+    # Переход на следующую страницу
+    try:
+        next_page = driver.find_element(By.XPATH, "//a[contains(@class, 's-pagination-next')]")
+        next_page_url = next_page.get_attribute('href')
+    except:
+        print('Это последняя страница!')
+        break
+
+# Создание DataFrame и сохранение в CSV
+df = pd.DataFrame({
+    'Brand': laptop_brand,
+    'Model': laptop_model,
+    'Screen Size': laptop_screensize,
+    'RAM': laptop_ram,
+    'Storage': laptop_storage,
+    'CPU': laptop_cpumodel,
+    'Operating System': laptop_operating_system,
+    'Price': laptop_price,
+    'Rating': laptop_rating,
+    'Review Count': laptop_review_count,
+    'Graphics Card': laptop_graphics_card_description,
+})
+
+df.to_csv('laptops.csv', index=False)
+print("Данные сохранены в laptops.csv")
+
+# Закрываем браузер
+driver.quit()
+
+##############################
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support import expected_conditions
-from urllib.parse import urljoin  # URL bog'lash uchun import
 import pandas as pd
 
-url = "https://uybor.uz/listings?category__eq=7&isNewBuilding__eq=false"
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
-# Ma'lumotlar saqlash uchun ro'yxatlar
-titles = []
-rooms = []
-areas = []
-floors = []
-renovations = []
-materials = []
-prices = []
-adresses = []
-lifts = []
-securities = []
-internets = []
-playground = []
-sewerages = []
-bathrooms = []
-video_monitor = []
-parking_spaces = []
-air_condition = []
-furniture = []
+laptop_brand = []
+laptop_model = []
+laptop_screensize = []
+laptop_ram = []
+laptop_storage = []
+laptop_cpumodel = []
+laptop_os = []
+laptop_price = []
+laptop_rating = []
+laptop_review_count = []
+laptop_gcd = []
 
-son = 0
-counter = 1
-max_count = 98
-while counter <= max_count:
+next_page_url = "https://www.amazon.in/s?k=laptop&crid=3P9YDE8F7NM97&sprefix=laptop%2Caps%2C545&ref=nb_sb_noss_2"
+
+count = 1
+max_count = 1
+
+while count <= max_count:
     laptop_links = []
-    driver.get(url)
-
+    for i in range(3):
+        driver.get(next_page_url)
     try:
-        # Keyingi sahifaga o'tish tugmasini kutish
         next_page = WebDriverWait(driver, 10).until(
-            expected_conditions.presence_of_element_located((By.XPATH,
-                                            "//a[@class='MuiButtonBase-root MuiPaginationItem-root MuiPaginationItem-sizeLarge MuiPaginationItem-text MuiPaginationItem-rounded MuiPaginationItem-textPrimary MuiPaginationItem-previousNext mui-style-mj6azz']"))
-        )
-
-        # To'liq URL olish (relative URL dan to'liq URL yaratish)
+            expected_conditions.presence_of_element_located((By.XPATH, "//a[@class='s-pagination-item s-pagination-next s-pagination-button s-pagination-button-accessibility s-pagination-separator']")))
         next_page_url = next_page.get_attribute("href")
-        next_page_full_url = urljoin(url, next_page_url)  # Asosiy URL ni qo'shish
-
-        # Keyingi sahifaga o'tish
-        url = next_page_full_url  # yangi URLga o'tish
-        print(f"Sahifa {counter}: {url}")
-
-    except Exception as e:
-        print("End page yoki xatolik:", e)
+    except:
+        print("end page")
         break
 
-    # Linklarni olish
-    float_links = driver.find_elements(By.XPATH, "//a[@class='MuiBox-root mui-style-1vssrzj']")
-    flat_urls = [link.get_attribute('href') for link in float_links]
-    print(flat_urls)
-    print(len(flat_urls))
+    laptop_url = driver.find_elements(By.XPATH, "//a[@class='a-link-normal s-line-clamp-2 s-link-style a-text-normal']")
+    for url in laptop_url:
+        l_link = url.get_attribute("href")
+        laptop_links.append(l_link)
 
-    for furl in flat_urls:
-        driver.get(furl)
+    for link in laptop_links:
+        driver.get(link)
+
         try:
-            title = driver.find_element(By.XPATH, "//h1[@class='MuiTypography-root MuiTypography-h2 mui-style-1tyknu']").text
+            brand = WebDriverWait(driver, 10).until(
+            expected_conditions.presence_of_element_located((By.XPATH, "//tr[@class='a-spacing-small po-brand']//td[@class='a-span9']"))).text
         except:
-            title = "No title"
-        titles.append(title)
-        print(f"Title: {title}")
+            brand = "No brand"
+        print(count)
+        print(f"brand: {brand}")
+        laptop_brand.append(brand)
 
         try:
-            room = driver.find_element(By.XPATH, "//div[@class='MuiTypography-root MuiTypography-overline mui-style-1xqesu' and contains(text(), 'Комнат')]/following-sibling::div").text
+            model = WebDriverWait(driver, 10).until(
+            expected_conditions.presence_of_element_located((By.XPATH, "//tr[@class='a-spacing-small po-model_name']//span[@class='a-size-base po-break-word']"))).text
         except:
-            room = "No room"
-        rooms.append(room)
-        print(f"Room: {room}")
+            model = "No model"
+        print(f"model: {model}")
+        laptop_model.append(model)
 
         try:
-            area = driver.find_element(By.XPATH, "//div[@class='MuiTypography-root MuiTypography-overline mui-style-1xqesu' and contains(text(), 'Площадь')]/following-sibling::div").text
+            screensize = WebDriverWait(driver, 10).until(
+            expected_conditions.presence_of_element_located((By.XPATH, "//tr[@class='a-spacing-small po-display.size']//span[@class='a-size-base po-break-word']"))).text
         except:
-            area = "No area"
-        areas.append(area)
-        print(f"Area: {area}")
+            screensize = "No screensize"
+        print(f"screensize: {screensize}")
+        laptop_screensize.append(screensize)
 
         try:
-            floor = driver.find_element(By.XPATH, "//div[@class='MuiTypography-root MuiTypography-overline mui-style-1xqesu' and contains(text(), 'Этаж')]/following-sibling::div").text
+            ram = WebDriverWait(driver, 10).until(
+            expected_conditions.presence_of_element_located((By.XPATH, "//th[@class='a-color-secondary a-size-base prodDetSectionEntry' and contains(text(), 'Maximum Memory Supported')]//following-sibling::td"))).text
         except:
-            floor = "No floor"
-        floors.append(floor)
-        print(f"Floor: {floor}")
+            ram = "No ram"
+        print(f"ram: {ram}")
+        laptop_ram.append(ram)
 
         try:
-            renovation = driver.find_element(By.XPATH, "//div[@class='MuiTypography-root MuiTypography-overline mui-style-1xqesu' and contains(text(), 'Ремонт')]/following-sibling::div").text
+            storage = WebDriverWait(driver, 10).until(
+            expected_conditions.presence_of_element_located((By.XPATH, "//tr[@class='a-spacing-small po-hard_disk.size']//span[@class='a-size-base po-break-word']"))).text
         except:
-            renovation = "No renovation"
-        renovations.append(renovation)
-        print(f"Renovation: {renovation}")
+            storage = "No storage"
+        print(f"storage: {storage}")
+        laptop_storage.append(storage)
 
         try:
-            material = driver.find_element(By.XPATH, "//div[@class='MuiTypography-root MuiTypography-overline mui-style-1xqesu' and contains(text(), 'Материал')]/following-sibling::div").text
+            cpu = WebDriverWait(driver, 10).until(
+            expected_conditions.presence_of_element_located((By.XPATH, "//th[@class='a-color-secondary a-size-base prodDetSectionEntry' and contains(text(), 'Processor Type')]//following-sibling::td"))).text
         except:
-            material = "No material"
-        materials.append(material)
-        print(f"Material: {material}")
+            cpu = "No cpu"
+        print(f"cpu: {cpu}")
+        laptop_cpumodel.append(cpu)
+
 
         try:
-            price = driver.find_element(By.XPATH, "//div[@class='MuiTypography-root MuiTypography-h2 mui-style-86wpc3']").text
+            os = WebDriverWait(driver, 10).until(
+            expected_conditions.presence_of_element_located((By.XPATH, "//th[@class='a-color-secondary a-size-base prodDetSectionEntry' and contains(text(), 'Operating System')]//following-sibling::td"))).text
+        except:
+            os = "No os"
+        print(f"os: {os}")
+        laptop_os.append(os)
+
+        try:
+            price = WebDriverWait(driver, 10).until(
+            expected_conditions.presence_of_element_located((By.XPATH, "//span[@class='a-price aok-align-center reinventPricePriceToPayMargin priceToPay']//span//span[@class='a-price-whole']"))).text
         except:
             price = "No price"
-        prices.append(price)
-        print(f"Price: {price}")
+        print(f"price: {price}")
+        laptop_price.append(price)
 
         try:
-            adresse = driver.find_element(By.XPATH, "//div[@class='MuiTypography-root MuiTypography-body2 mui-style-31fjox']").text
+            rating = WebDriverWait(driver, 10).until(
+            expected_conditions.presence_of_element_located((By.XPATH, "//span[@class='reviewCountTextLinkedHistogram noUnderline']"))).text
         except:
-            adresse = "No address"
-        adresses.append(adresse)
-        print(f"Address: {adresse}")
+            rating = "No rating"
+        print(f"rating: {rating}")
+        laptop_rating.append(rating)
 
-        # Qo'shimcha atributlar
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, ".MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-2.mui-style-isbt42")
-            for element in elements:
-                text = element.text.strip()
-                lift = '1' if 'Лифт' in text else ('1' if int(floor.split('/')[1]) > 5 else '0')
-                security = '1' if 'Охрана' in text else '0'
-                internet = '1' if 'Интернет' in text else '0'
-                playgr = '1' if 'Детская площадка' in text else '0'
-                swg = '1' if 'Канализация' in text else '0'
-                bath = '1' if 'Санузел' in text else '0'
-                video = '1' if 'Видеонаблюдение' in text else '0'
-                parking = '1' if 'Парковочное место' in text else '0'
+            review_count = WebDriverWait(driver, 10).until(
+            expected_conditions.presence_of_element_located((By.XPATH, "//span[@id='acrCustomerReviewText']"))).text
+        except:
+            review_count = "No review_count"
+        print(f"review_count: {review_count}")
+        laptop_review_count.append(review_count)
 
-        except Exception as e:
-            print(f"Error: {e}")
+        try:
+            description = WebDriverWait(driver, 10).until(
+            expected_conditions.presence_of_element_located((By.XPATH, "//th[@class='a-color-secondary a-size-base prodDetSectionEntry' and contains(text(), 'Graphics Card Description')]//following-sibling::td"))).text
+        except:
+            description = "No description"
+        print(f"description: {description}")
+        print("\n")
+        laptop_gcd.append(description)
 
-        lifts.append(lift)
-        print(f"Lift: {lift}")
-        securities.append(security)
-        print(f"Security: {security}")
-        internets.append(internet)
-        print(f"Internet: {internet}")
-        playground.append(playgr)
-        print(f"Playground: {playgr}")
-        sewerages.append(swg)
-        print(f"Sewerage: {swg}")
-        bathrooms.append(bath)
-        print(f"Bathroom: {bath}")
-        video_monitor.append(video)
-        print(f"Video: {video}")
-        parking_spaces.append(parking)
-        print(f"Parking: {parking}\n\n")
-
-        son += 1
-        print(son)
-
-    counter += 1
-    print(counter)
-
+        count += 1
 
 df = pd.DataFrame({
-    'Title': titles, 'Room': rooms, 'Area': areas, 'Floor': floors, 'Renovation': renovations, 'Material': materials,
-    'Price': prices, 'Address': adresses, 'Lift': lifts, 'Security': securities, 'Internet': internets,
-    'Playground': playground, 'Sewerage': sewerages, 'Bathroom': bathrooms, 'Video': video_monitor,
-    'Parking': parking_spaces
+    "laptop_brand":laptop_brand,
+    "laptop_model":laptop_model,
+    "laptop_screensize":laptop_screensize,
+    "laptop_ram":laptop_ram,
+    "laptop_storage":laptop_storage,
+    "laptop_cpumodel":laptop_cpumodel,
+    "laptop_os":laptop_os,
+    "laptop_price":laptop_price,
+    "laptop_rating":laptop_rating,
+    "laptop_review_count":laptop_review_count,
+    "laptop_gcd":laptop_gcd,
 })
-
-df.to_csv('real_estate_listings.csv', index=False)
-print("Data saved to CSV.")
+df.to_csv("laptops100.csv")
